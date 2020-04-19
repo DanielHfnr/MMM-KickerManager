@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const cookies = require('./cookies.json');
 
+const base_url = 'https://www.kicker.de/';
 const login_url = 'https://www.kicker.de/meinkicker/login';
 const standings_url = 'https://manager.kicker.de/pro/Wertungen/wertunggesamt';
 
@@ -14,9 +15,12 @@ class KickerClient {
     constructor(opts, modulePath) {
    
         (async () => {
+            await this.page.setDefaultNavigationTimeout(0);
+
             this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
             this.page = await this.browser.newPage();
-            await this.page.setDefaultNavigationTimeout(0);
+            await this.page.goto(base_url, {waitUntil: 'networkidle0' });
+
         })();
     }
 
@@ -56,6 +60,15 @@ class KickerClient {
         return texts;
     }
 
+    pageLoaded() {
+        try {
+            await this.page.waitFor('button[a="kick__header-logo__img"]');
+            return true;
+        } catch(error) {
+            console.log("Not loaded...");
+            return false;
+        }
+    }
 }
 
 module.exports = KickerClient;

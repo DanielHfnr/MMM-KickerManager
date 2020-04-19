@@ -39,6 +39,11 @@ module.exports = NodeHelper.create({
             if (this.config.debug === true) {
                 console.log("Logging in...");
             }
+
+            do {
+
+            } while(this.client.pageLoaded);
+
             this.client.login(this.config.username, this.config.password);
 
         } else {
