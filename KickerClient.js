@@ -7,13 +7,14 @@ const standings_url = 'https://manager.kicker.de/pro/Wertungen/wertunggesamt';
 
 class KickerClient {
 
-    async constructor(opts, modulePath) {
+    constructor(opts, modulePath) {
    
-        this.currentCookies = null;
-        this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
-        this.page = await browser.newPage();
-        await this.page.setDefaultNavigationTimeout(0);
-
+        (async () => {
+            this.currentCookies = null;
+            this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
+            this.page = await browser.newPage();
+            await this.page.setDefaultNavigationTimeout(0);
+        })();
     }
 
     async mustLogin() {
