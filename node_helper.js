@@ -40,7 +40,7 @@ module.exports = NodeHelper.create({
                 console.log("Logging in...");
             }
 
-            this.client.login();
+            //this.client.login();
            
 
         } else {
@@ -66,6 +66,10 @@ module.exports = NodeHelper.create({
         
         this.client = new KickerClient(payload, this.path);
         getAsync(this.client.init());
+
+        if (this.config.debug === true) {
+            console.log("Initializing client finished...");
+        }
     },
 
     getAsync = async (pass) => {
