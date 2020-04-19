@@ -9,30 +9,33 @@ const standings_url = 'https://manager.kicker.de/pro/Wertungen/wertunggesamt';
 let browser = null;
 let page = null;
 let currentCookies = null;
+let config = null;
 
 class KickerClient {
 
     constructor(opts, modulePath) {
-   
-        (async () => {
-            await this.page.setDefaultNavigationTimeout(0);
+        this.config = opts;
 
-            this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
-            this.page = await this.browser.newPage();
-            await this.page.goto(base_url, {waitUntil: 'networkidle0' });
+    }
 
-        })();
+    async init() {
+        this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
+        this.page = await this.browser.newPage();
+        await this.page.setDefaultNavigationTimeout(0);
+
+        await this.page.goto(base_url, {waitUntil: 'networkidle0' });
+
     }
 
     async mustLogin() {
         return Object.keys(cookies).length;
     }
 
-    async login(email, password) {
+    async login() {
         await this.page.goto(login_url, {waitUntil: 'networkidle0' });
 
-        await this.page.type('#kick__login-user', email, { delay: 30 });
-        await this.page.type('#kick__login-pass', password, { delay: 30});
+        await this.page.type('#kick__login-user', this.config.username, { delay: 30 });
+        await this.page.type('#kick__login-pass', this.config.password, { delay: 30});
         await this.page.click('button[class="kick__btn kick__btn-block kick__btn-dark kick__btn--spinner"]');
   
         await this.page.waitForNavigation({ waitUntil: 'networkidle0' });
@@ -60,15 +63,6 @@ class KickerClient {
         return texts;
     }
 
-    pageLoaded() {
-        try {
-            await this.page.waitFor('button[a="kick__header-logo__img"]');
-            return true;
-        } catch(error) {
-            console.log("Not loaded...");
-            return false;
-        }
-    }
 }
 
 module.exports = KickerClient;
