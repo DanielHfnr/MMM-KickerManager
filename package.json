@@ -1,0 +1,23 @@
+{
+  "name": "MMM-KickerManager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MMM-KickerManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielHfnr/MMM-KickerManager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielHfnr/MMM-KickerManager/issues"
+  },
+  "homepage": "https://github.com/DanielHfnr/MMM-KickerManager#readme",
+  "dependencies": {
+    "puppeteer": "^3.0.0"
+  }
+}
