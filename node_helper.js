@@ -7,7 +7,7 @@
  */
 
 const NodeHelper = require("node_helper");
-const BringClient = require("./KickerClient");
+const KickerClient = require("./KickerClient");
 
 
 let client;

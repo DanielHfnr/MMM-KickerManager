@@ -51,7 +51,7 @@ Module.register("MMM-KickerManager", {
     },
 
 
-    updateLeagueTable: function(this) {
+    updateLeagueTable: function() {
 		this.sendSocketNotification("GET_LEAGUE_TABLE", this.config);
     },
 
