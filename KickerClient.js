@@ -5,16 +5,18 @@ const cookies = require('./cookies.json');
 const login_url = 'https://www.kicker.de/meinkicker/login';
 const standings_url = 'https://manager.kicker.de/pro/Wertungen/wertunggesamt';
 
+let browser = null;
+let page = null;
+let currentCookies = null;
+
 class KickerClient {
 
     constructor(opts, modulePath) {
    
         (async () => {
-            this.currentCookies = null;
             this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
-            this.page = await browser.newPage();
+            this.page = await this.browser.newPage();
             await this.page.setDefaultNavigationTimeout(0);
-            await page.waitFor(15000);
         })();
     }
 
