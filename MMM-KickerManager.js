@@ -8,19 +8,20 @@ Module.register("MMM-KickerManager", {
 
 	defaults: {
 		updateInterval: 60 * 60 * 1000, // Every hour.
-		animationSpeed: 1000, // One second.
-		debug: false
+        animationSpeed: 1000, // One second.
+        username: "",
+        password: "",
+		debug: false,
+		headless: true
 	},
 
 	start: function() {
         this.loaded = false;
         
-
 		Log.info("Starting module: " + this.name);
 		this.updateLeagueTable(this);
 		setInterval(() => {
-
-
+            this.updateLeagueTable(this);
         	}, this.config.updateInterval);
 	},
 

@@ -12,6 +12,7 @@ const BringClient = require("./KickerClient");
 
 let client;
 let config;
+let leagueTable;
 
 module.exports = NodeHelper.create({
     
@@ -20,12 +21,13 @@ module.exports = NodeHelper.create({
 	},
 
     socketNotificationReceived: function (notification, payload) {
+        this.config = payload;
         if (notification === "GET_LEAGUE_TABLE") {
             if (!this.client) {
                 this.initClient(payload);
+                this.getLeagueTable(payload);
             } else {
                 this.getLeagueTable(payload);
-                this.config = payload;
             }
             return true;
         }
@@ -33,14 +35,23 @@ module.exports = NodeHelper.create({
 
     getLeagueTable: function (payload) {
         if (this.client.mustLogin()) {
-            this.initClient(payload.config);
+            // Login
+            this.client.login();
+
         } else {
+            this.client.relaunchSession();
             // Get Table
+            this.leagueTable = this.client.getLeagueTable();
+
+            console.log("League table:  " + this.leagueTable);
+
+            this.sendSocketNotification("LEAGUE_TABLE", {leagueTable: this.leagueTable});
         }
     },
 
     initClient: function (payload) {
         this.client = new KickerClient(payload, this.path);
 
+        
     }
 });
