@@ -14,6 +14,7 @@ class KickerClient {
             this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
             this.page = await browser.newPage();
             await this.page.setDefaultNavigationTimeout(0);
+            await page.waitFor(15000);
         })();
     }
 

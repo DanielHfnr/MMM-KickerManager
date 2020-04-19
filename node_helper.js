@@ -36,9 +36,17 @@ module.exports = NodeHelper.create({
     getLeagueTable: function (payload) {
         if (this.client.mustLogin()) {
             // Login
-            this.client.login();
+            if (this.config.debug === true) {
+                console.log("Logging in...");
+            }
+            this.client.login(this.config.username, this.config.password);
 
         } else {
+            
+            if (this.config.debug === true) {
+                console.log("Relaunching session...");
+            }
+
             this.client.relaunchSession();
             // Get Table
             this.leagueTable = this.client.getLeagueTable();
@@ -50,8 +58,10 @@ module.exports = NodeHelper.create({
     },
 
     initClient: function (payload) {
-        this.client = new KickerClient(payload, this.path);
-
+        if (this.config.debug === true) {
+            console.log("Initializing client...");
+        }
         
+        this.client = new KickerClient(payload, this.path);
     }
 });
