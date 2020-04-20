@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const cheerio = require('cheerio')
 const fs = require('fs');
 const cookies = require('./cookies.json');
 
@@ -60,15 +61,28 @@ class KickerClient {
     }
 
     async getLeagueTable() {
+        await this.page.goto(standings_url, { waitUntil: 'networkidle2' });
+
+        // Get page content as HTML.
+        const content = await this.page.content();
+
+        //Load content in cheerio.
+        const $ = cheerio.load(content);
         
-        let texts = await page.evaluate(() => {
+        const stat = $('.tStat');
+
+        return stat;
+        /*
+        let texts = await this.page.evaluate(() => {
             let data = [];
             let elements = document.getElementsByClassName('tStat');
+            
             for (var element of elements)
                 data.push(element.textContent);
             return data;
         });
         return texts;
+        */
     }
 
 }
