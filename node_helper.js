@@ -44,8 +44,20 @@ module.exports = NodeHelper.create({
                 console.log("Logging in...");
             }
             // Login
-            this.client.login();
-           
+            var logged_in = this.client.login();
+            logged_in.then(() => { 
+                if (this.config.debug === true) {
+                    console.log("Retrieving league table data...");
+                }
+                // Get actual league table
+                //this.leagueTable = this.client.getLeagueTable();
+                //console.log("League table:  " + this.leagueTable); 
+                this.client.getLeagueTable().then(table => {
+                    this.leagueTable = table;
+                    console.log("League table:  " + this.leagueTable); 
+                });
+            });
+
 
         } else {
             
