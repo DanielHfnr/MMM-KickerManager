@@ -16,7 +16,9 @@ Module.register("MMM-KickerManager", {
 	},
 
 	start: function() {
-        this.loaded = false;
+		this.loaded = false;
+		this.leagueTableBody = null;
+		this.leagueTable = null;
         
 		Log.info("Starting module: " + this.name);
 		this.updateLeagueTable(this);
@@ -60,7 +62,7 @@ Module.register("MMM-KickerManager", {
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "LEAGUE_TABLE") {
 			this.loaded = true;
-			this.leagueTable = payload.leagueTable;
+			this.leagueTable = payload.table;
 			this.leagueTableBody = payload.tbody;
 			Log.info("Got socket notification: " + notification);
 

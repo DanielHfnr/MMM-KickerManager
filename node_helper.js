@@ -61,7 +61,7 @@ module.exports = NodeHelper.create({
                     if (this.config.debug === true) {
                         console.log("Sending socketNotification...");
                     }
-                    this.sendSocketNotification("LEAGUE_TABLE", this.leagueTable);
+                    this.sendSocketNotification("LEAGUE_TABLE", {"table":this.leagueTable.table, "tbody":this.leagueTable.tbody});
                 });
             });
 
