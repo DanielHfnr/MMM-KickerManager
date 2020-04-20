@@ -69,7 +69,11 @@ class KickerClient {
         //Load content in cheerio.
         const $ = cheerio.load(content);
         
-        const stat = $('.tStat');
+        //const stat = $('.tStat');
+
+        let stat = $('[summary="Spieltagswertung"]');
+       
+
 
         return stat;
         /*
