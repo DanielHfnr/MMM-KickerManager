@@ -83,39 +83,17 @@ class KickerClient {
             let teamname = "";
             let punkte = "";
 
-            $(e)('td').each(function (j, result) {
-                // go through all tds
-                
-                if ($(result)('[class=first]')) {
-                    // platz
-                    console.log("Platz: " + $(result).text());
-                }
-      
-                if ($(result)('[class=last alignright]')) {
-                    // platz
-                    console.log("Punkte: " + $(result).text());
-                }
+            if ($(e).children('td.first').length && 
+                $(e).children('td.last.alignright').length) {
 
-                if ($(result).children('a.link').length) {
-                    // teamname
-                    console.log("Teamname: " + $(result).children('a.link').text());
-                }
-            });
+                var platz = $(e).children('td.first').text();
+                //var tendenz = $(e).children('td.aligncenter').text();
+                //var teamname = $(e).children('td.link');
+                var punkte = $(e).children('td.last.alignright').text();
 
-
-            // if ($(e).children('td.first').length && 
-            //     $(e).children('td.aligncenter').length &&
-            //     $(e).children('td.link').length &&
-            //     $(e).children('td.last alignright').length) {
-
-            //     var platz = $(e).children('td.first');
-            //     var tendenz = $(e).children('td.aligncenter');
-            //     var teamname = $(e).children('td.link');
-            //     var punkte = $(e).children('td.last alignright');
-
-            //     var object = {"platz":platz,"teamname":teamname,"punkte":punkte};
-            //     table.push(object);
-            // }
+                var object = {"platz":platz, "punkte":punkte};
+                table.push(object);
+            }
         });
 
         return table;
