@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/DanielHfnr/MMM-KickerManager#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "puppeteer": "^3.0.0"
   }
 }
