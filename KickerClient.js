@@ -78,36 +78,19 @@ class KickerClient {
 
         table_rows.each(function (i, e) {
 
-            let platz = "";
-            let tendenz = "";
-            let teamname = "";
-            let punkte = "";
-
             if ($(e).children('td.first').length && 
+                $(e).children('td').children('a.link').length &&
                 $(e).children('td.last.alignright').length) {
 
                 var platz = $(e).children('td.first').text();
                 //var tendenz = $(e).children('td.aligncenter').text();
-                //var teamname = $(e).children('td.link');
+                var teamname = $(e).children('td').children('a.link').text();
                 var punkte = $(e).children('td.last.alignright').text();
 
-                var object = {"platz":platz, "punkte":punkte};
-                table.push(object);
+                table.push({"platz":platz, "teamname":teamname, "punkte":punkte});
             }
         });
-
         return table;
-        /*
-        let texts = await this.page.evaluate(() => {
-            let data = [];
-            let elements = document.getElementsByClassName('tStat');
-            
-            for (var element of elements)
-                data.push(element.textContent);
-            return data;
-        });
-        return texts;
-        */
     }
 
 }

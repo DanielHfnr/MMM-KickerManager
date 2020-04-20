@@ -49,12 +49,15 @@ module.exports = NodeHelper.create({
                 if (this.config.debug === true) {
                     console.log("Retrieving league table data...");
                 }
-                // Get actual league table
-                //this.leagueTable = this.client.getLeagueTable();
-                //console.log("League table:  " + this.leagueTable); 
+                // Get actual league table 
                 this.client.getLeagueTable().then(table => {
                     this.leagueTable = table;
-                    console.log("League table:  " + this.leagueTable); 
+                    if (this.config.debug === true) {
+                        console.log("League table:  ");
+                        for (let i in this.leagueTable) {
+                            console.log("Platz" + this.leagueTable[i].platz + "Teamname" + this.leagueTable[i].teamname + "Punkte" + this.leagueTable[i].punkte);
+                        }
+                    } 
                 });
             });
 
