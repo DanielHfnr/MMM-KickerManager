@@ -37,6 +37,9 @@ Module.register("MMM-KickerManager", {
 
 	// Override dom generator.
 	getDom: function() {
+		Log.info("Called dom generator...");
+
+		
 		var wrapper = document.createElement("div");
 
 		if (!this.loaded) {
@@ -59,6 +62,9 @@ Module.register("MMM-KickerManager", {
 			this.loaded = true;
 			this.leagueTable = payload.leagueTable;
 			this.leagueTableBody = payload.tbody;
+			Log.info("Got socket notification: " + notification);
+
+			this.updateDom(this.config.animationSpeed);
 		}
     },
 

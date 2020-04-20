@@ -58,6 +58,9 @@ module.exports = NodeHelper.create({
                             console.log("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
                         }
                     } 
+                    if (this.config.debug === true) {
+                        console.log("Sending socketNotification...");
+                    }
                     this.sendSocketNotification("LEAGUE_TABLE", this.leagueTable);
                 });
             });
