@@ -39,6 +39,16 @@ Module.register("MMM-KickerManager", {
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
+		if (!this.loaded) {
+			wrapper.innerHTML = "Loading data...";
+			wrapper.className = "dimmed light small";
+			return wrapper;
+		}
+
+		var dataTable = document.createElement("table");
+		dataTable.className = "small";
+		dataTable.appendChild(this.leagueTableBody);
+		wrapper.appendChild(dataTable);
 
 		return wrapper;
 	},
@@ -46,7 +56,9 @@ Module.register("MMM-KickerManager", {
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "LEAGUE_TABLE") {
-
+			this.loaded = true;
+			this.leagueTable = payload.leagueTable;
+			this.leagueTableBody = payload.tbody;
 		}
     },
 

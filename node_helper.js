@@ -54,10 +54,11 @@ module.exports = NodeHelper.create({
                     this.leagueTable = table;
                     if (this.config.debug === true) {
                         console.log("League table:  ");
-                        for (let i in this.leagueTable) {
-                            console.log("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
+                        for (let i in this.leagueTable.table) {
+                            console.log("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
                         }
                     } 
+                    this.sendSocketNotification("LEAGUE_TABLE", this.leagueTable);
                 });
             });
 
@@ -69,12 +70,7 @@ module.exports = NodeHelper.create({
             }
 
             this.client.relaunchSession();
-            // Get Table
-            this.leagueTable = this.client.getLeagueTable();
-
-            console.log("League table:  " + this.leagueTable);
-
-            this.sendSocketNotification("LEAGUE_TABLE", {leagueTable: this.leagueTable});
+  
         }
     },
 
