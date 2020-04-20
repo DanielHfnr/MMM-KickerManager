@@ -25,6 +25,9 @@ module.exports = NodeHelper.create({
         if (notification === "GET_LEAGUE_TABLE") {
             if (!this.client) {
                 this.initClient(payload).then(() => { 
+                    if (this.config.debug === true) {
+                        console.log("Getting league table...");
+                    }
                     this.getLeagueTable(); 
                 });
             } else {
@@ -66,6 +69,12 @@ module.exports = NodeHelper.create({
         }
         
         this.client = new KickerClient(payload, this.path);
-        this.client.init().then(() => { return true; });
+        var connected = this.client.init();
+        connected.then(() => { 
+            if (this.config.debug === true) {
+                console.log("Initializing client finished...");
+            }
+        });
+        return connected; 
     },
 });
