@@ -24,8 +24,9 @@ module.exports = NodeHelper.create({
         this.config = payload;
         if (notification === "GET_LEAGUE_TABLE") {
             if (!this.client) {
-                this.initClient(payload);
-                this.getLeagueTable(payload);
+                this.initClient(payload).then(() => { 
+                    this.getLeagueTable(); 
+                });
             } else {
                 this.getLeagueTable(payload);
             }
@@ -33,14 +34,14 @@ module.exports = NodeHelper.create({
         }
     },
 
-    getLeagueTable: function (payload) {
+    getLeagueTable: function () {
         if (this.client.mustLogin()) {
             // Login
             if (this.config.debug === true) {
                 console.log("Logging in...");
             }
-
-            //this.client.login();
+            // Login
+            this.client.login();
            
 
         } else {
@@ -65,15 +66,6 @@ module.exports = NodeHelper.create({
         }
         
         this.client = new KickerClient(payload, this.path);
-        getAsync(this.client.init());
-
-        if (this.config.debug === true) {
-            console.log("Initializing client finished...");
-        }
+        this.client.init().then(() => { return true; });
     },
-
-    getAsync = async (pass) => {
-        await pass;
-    }
-
 });

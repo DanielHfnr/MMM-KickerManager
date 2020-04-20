@@ -6,27 +6,33 @@ const base_url = 'https://www.kicker.de/';
 const login_url = 'https://www.kicker.de/meinkicker/login';
 const standings_url = 'https://manager.kicker.de/pro/Wertungen/wertunggesamt';
 
-let browser = null;
-let page = null;
-let currentCookies = null;
-let config = null;
+//let browser = null;
+//let page = null;
+//let currentCookies = null;
+//let config = null;
 
 class KickerClient {
 
     constructor(opts, modulePath) {
         this.config = opts;
+        this.browser = null;
+        this.page = null;
+        this.currentCookies = null;
+
+
 
     }
 
-    async init() {
-        this.browser = await puppeteer.launch({ headless: opts.headless, executablePath: 'chromium-browser' });
+    // Init browser an login 
+    async init() {     
+        this.browser = await puppeteer.launch({ headless: this.config.headless, executablePath: 'chromium-browser' });
         this.page = await this.browser.newPage();
         await this.page.setDefaultNavigationTimeout(0);
-
         await this.page.goto(base_url, {waitUntil: 'networkidle0' });
 
+        return true;
     }
-
+    
     async mustLogin() {
         return Object.keys(cookies).length;
     }
@@ -39,6 +45,8 @@ class KickerClient {
         await this.page.click('button[class="kick__btn kick__btn-block kick__btn-dark kick__btn--spinner"]');
   
         await this.page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+        return true;
     }
 
     async saveCookies() {     
