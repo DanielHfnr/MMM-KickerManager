@@ -78,19 +78,44 @@ class KickerClient {
 
         table_rows.each(function (i, e) {
 
-            if ($(e).children('td.first').length && 
-                $(e).children('td.aligncenter').length &&
-                $(e).children('td.link').length &&
-                $(e).children('td.last alignright').length) {
+            let platz = "";
+            let tendenz = "";
+            let teamname = "";
+            let punkte = "";
 
-                var platz = $(e).children('td.first');
-                var tendenz = $(e).children('td.aligncenter');
-                var teamname = $(e).children('td.link');
-                var punkte = $(e).children('td.last alignright');
+            $(e)('td').each(function (j, result) {
+                // go through all tds
+                
+                if ($(result)('[class=first]')) {
+                    // platz
+                    console.log("Platz: " + $(result).text());
+                }
+      
+                if ($(result)('[class=last alignright]')) {
+                    // platz
+                    console.log("Punkte: " + $(result).text());
+                }
 
-                var object = {"platz":platz,"teamname":teamname,"punkte":punkte};
-                table.push(object);
-            }
+                if ($(result).children('a.link').length) {
+                    // teamname
+                    console.log("Teamname: " + $(result).children('a.link').text());
+                }
+            });
+
+
+            // if ($(e).children('td.first').length && 
+            //     $(e).children('td.aligncenter').length &&
+            //     $(e).children('td.link').length &&
+            //     $(e).children('td.last alignright').length) {
+
+            //     var platz = $(e).children('td.first');
+            //     var tendenz = $(e).children('td.aligncenter');
+            //     var teamname = $(e).children('td.link');
+            //     var punkte = $(e).children('td.last alignright');
+
+            //     var object = {"platz":platz,"teamname":teamname,"punkte":punkte};
+            //     table.push(object);
+            // }
         });
 
         return table;
