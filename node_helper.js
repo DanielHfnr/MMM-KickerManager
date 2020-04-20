@@ -55,7 +55,7 @@ module.exports = NodeHelper.create({
                     if (this.config.debug === true) {
                         console.log("League table:  ");
                         for (let i in this.leagueTable) {
-                            console.log("Platz" + this.leagueTable[i].platz + "Teamname" + this.leagueTable[i].teamname + "Punkte" + this.leagueTable[i].punkte);
+                            console.log("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
                         }
                     } 
                 });

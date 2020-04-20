@@ -69,7 +69,6 @@ class KickerClient {
         //Load content in cheerio.
         const $ = cheerio.load(content);
         
-
         let stat = $('[summary="Spieltagswertung"]');
         let tbody = stat.children();
         let table_rows = tbody.children();
@@ -82,12 +81,12 @@ class KickerClient {
                 $(e).children('td').children('a.link').length &&
                 $(e).children('td.last.alignright').length) {
 
-                var platz = $(e).children('td.first').text();
-                //var tendenz = $(e).children('td.aligncenter').text();
+                var platz = $(e).children('td.first').text();  
+                var tendenz = $(e).find('img').attr('src');
                 var teamname = $(e).children('td').children('a.link').text();
                 var punkte = $(e).children('td.last.alignright').text();
 
-                table.push({"platz":platz, "teamname":teamname, "punkte":punkte});
+                table.push({"platz":platz, "teamname":teamname, "tendenz":tendenz, "punkte":punkte});
             }
         });
         return table;
