@@ -24,7 +24,17 @@ Module.register("MMM-KickerManager", {
 		this.updateLeagueTable(this);
 		setInterval(() => {
             this.updateLeagueTable(this);
-        	}, this.config.updateInterval);
+			}, this.config.updateInterval);
+			
+		//TODO: Update every day at 2:05 pm. On Mondays update at 12:05
+		// Something like this: 
+		// window.setInterval(function(){ // Set interval for checking
+		// 	var date = new Date(); // Create a Date object to find out what time it is
+		// 	if(date.getHours() === 8 && date.getMinutes() === 0){ // Check the time
+		// 		// Do stuff
+		// 	}
+		// }, 60000); // Repeat every 60000 milliseconds (1 minute)
+
 	},
 
 	getStyles: function() {
@@ -39,8 +49,7 @@ Module.register("MMM-KickerManager", {
 
 	// Override dom generator.
 	getDom: function() {
-		Log.info("Called dom generator...");
-
+		this.socketNotificationReceived('LOG', "Called dom generator...");
 		
 		var wrapper = document.createElement("div");
 
@@ -64,8 +73,7 @@ Module.register("MMM-KickerManager", {
 			this.loaded = true;
 			this.leagueTable = payload.table;
 			this.leagueTableBody = payload.tbody;
-			Log.info("Got socket notification: " + notification);
-
+			this.sendSocketNotification('LOG', "Got socket notification: " + notification);
 			this.updateDom(this.config.animationSpeed);
 		}
     },

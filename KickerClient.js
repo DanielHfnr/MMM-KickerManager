@@ -57,7 +57,8 @@ class KickerClient {
 
     async relaunchSession() {      
         await this.page.setCookie(...cookies);
-        await this.page.goto(standings_url, { waitUntil: 'networkidle2' });
+        
+        return true;
     }
 
     async getLeagueTable() {
