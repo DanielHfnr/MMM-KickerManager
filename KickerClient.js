@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio')
-const fs = require('fs');
+//const fs = require('fs');
 const cookies = require('./cookies.json');
 
 const base_url = 'https://www.kicker.de/';
@@ -51,8 +51,9 @@ class KickerClient {
     }
 
     async saveCookies() {     
-        this.currentCookies = await page.cookies();
-        fs.writerFileSync('./cookies.json', JSON.stringify(this.currentCookies));
+        this.currentCookies = await this.page.cookies();
+        //fs.writerFileSync('./cookies.json', JSON.stringify(this.currentCookies));
+        // Instead of filesystem --> save in variable
     }
 
     async relaunchSession() {      

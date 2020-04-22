@@ -71,6 +71,8 @@ Module.register("MMM-KickerManager", {
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "LEAGUE_TABLE") {
 			this.loaded = true;
+
+			// Check if empty (Game locked because of "Spielzuteilung")
 			this.leagueTable = payload.table;
 			this.leagueTableBody = payload.tbody;
 			this.sendSocketNotification('LOG', "Got socket notification: " + notification);

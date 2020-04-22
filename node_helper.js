@@ -51,12 +51,15 @@ module.exports = NodeHelper.create({
                 this.logConsole("Retrieving league table data...");
                 // Get actual league table 
                 this.client.getLeagueTable().then(table => {
-                    this.leagueTable = table;
-                    for (let i in this.leagueTable.table) {
-                        this.logConsole("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
-                    } 
-                    this.logConsole("Sending socketNotification...");
-                    this.sendSocketNotification("LEAGUE_TABLE", {"table":this.leagueTable.table, "tbody":this.leagueTable.tbody});
+                    // check if empty
+                    if (table.table != undefined && table.tbody != undefine) {
+                        this.leagueTable = table;
+                        for (let i in this.leagueTable.table) {
+                            this.logConsole("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
+                        } 
+                        this.logConsole("Sending socketNotification...");
+                        this.sendSocketNotification("LEAGUE_TABLE", {"table":this.leagueTable.table, "tbody":this.leagueTable.tbody});
+                    }
                 });
             });
         } else { 
