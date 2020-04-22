@@ -61,28 +61,24 @@ Module.register("MMM-KickerManager", {
 		var dataTable = document.createElement("table");
 		dataTable.className = "small";
 
-
+		// Create Table
 		for (let i in this.leagueTable) {
-			var labelRow = document.createElement("tr");
-			var placeCell = document.createElement("td");
-			var teamCell = document.createElement("td");
-			var pointsCell = document.createElement("td");
+			var tableRow = document.createElement("tr");
 
-			placeCell.innerHTML = this.leagueTable[i].platz;
-			teamCell.innerHTML = this.leagueTable[i].teamname;
-			pointsCell.innerHTML = this.leagueTable[i].punkte;
-
-
-			labelRow.appendChild(placeCell);
-			labelRow.appendChild(teamCell);
-			labelRow.appendChild(pointsCell);
-
-			dataTable.appendChild(labelRow);
-
-			//this.logConsole("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
+			const entries = Object.entries(this.leagueTable[i])
+			for (const [key, value] of entries) {	
+				var rowCell = document.createElement("td");
+				if (key == "tendenz") {
+					var img = document.createElement("img");
+					img.src = value;
+					rowCell.appendChild(img);
+				} else {
+					rowCell.innerHTML = value;
+				}
+				tableRow.appendChild(rowCell);
+			}
+			dataTable.appendChild(tableRow);
 		} 
-
-
 		wrapper.appendChild(dataTable);
 
 		return wrapper;
