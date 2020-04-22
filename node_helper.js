@@ -20,6 +20,13 @@ module.exports = NodeHelper.create({
 		console.log("MMM-KickerManager helper started ...");
 	},
 
+    stop: function() {
+        console.log("Shutting down MMM-KickerManager module...")
+        this.client.closeBrowser().then(() => {
+            console.log("MMM-KickerManager: Browser session closed!");
+        });
+    },
+
     socketNotificationReceived: function (notification, payload) {
         switch (notification) {
             case 'GET_LEAGUE_TABLE':
@@ -51,8 +58,8 @@ module.exports = NodeHelper.create({
                 this.logConsole("Retrieving league table data...");
                 // Get actual league table 
                 this.client.getLeagueTable().then(table => {
-                    // check if empty
-                    if (table.table != undefined && table.tbody != undefine) {
+                    // check if empty because of game is locked
+                    if (table.table.size != undefined && table.tbody.size != undefined) {
                         this.leagueTable = table;
                         for (let i in this.leagueTable.table) {
                             this.logConsole("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);

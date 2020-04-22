@@ -62,6 +62,11 @@ class KickerClient {
         return true;
     }
 
+    async closeBrowser() {
+        await this.browser.close();
+        return true;
+    }
+
     async getLeagueTable() {
         await this.page.goto(standings_url, { waitUntil: 'networkidle2' });
 
