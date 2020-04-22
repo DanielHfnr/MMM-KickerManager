@@ -59,13 +59,15 @@ module.exports = NodeHelper.create({
                 // Get actual league table 
                 this.client.getLeagueTable().then(table => {
                     // check if empty because of game is locked
-                    if (table.table.size != undefined && table.tbody.size != undefined) {
+                    if (!this.isEmpty(table.table) && !this.isEmpty(table.tbody)) {
                         this.leagueTable = table;
                         for (let i in this.leagueTable.table) {
                             this.logConsole("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
                         } 
                         this.logConsole("Sending socketNotification...");
                         this.sendSocketNotification("LEAGUE_TABLE", {"table":this.leagueTable.table, "tbody":this.leagueTable.tbody});
+                    } else {
+                        this.logConsole("League table is empty or game is locked...");
                     }
                 });
             });
@@ -101,6 +103,14 @@ module.exports = NodeHelper.create({
         if (this.config.debug === true) {
             console.log("MMM-KickerManager:  " + txt);
         }
+    },
+
+    isEmpty: function(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
     },
 
 });

@@ -19,9 +19,6 @@ class KickerClient {
         this.browser = null;
         this.page = null;
         this.currentCookies = null;
-
-
-
     }
 
     // Init browser an login 
