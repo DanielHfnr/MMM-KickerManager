@@ -93,7 +93,7 @@ class KickerClient {
                 table.push({"platz":platz, "teamname":teamname, "tendenz":tendenz, "punkte":punkte});
             }
         });
-        return {"table":table, "tbody":tbody};
+        return table;
     }
 
 }

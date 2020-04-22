@@ -17,7 +17,6 @@ Module.register("MMM-KickerManager", {
 
 	start: function() {
 		this.loaded = false;
-		this.leagueTableBody = null;
 		this.leagueTable = null;
         
 		Log.info("Starting module: " + this.name);
@@ -49,7 +48,7 @@ Module.register("MMM-KickerManager", {
 
 	// Override dom generator.
 	getDom: function() {
-		this.socketNotificationReceived('LOG', "Called dom generator...");
+		this.sendSocketNotification('LOG', "Called dom generator...");
 		
 		var wrapper = document.createElement("div");
 
@@ -61,7 +60,29 @@ Module.register("MMM-KickerManager", {
 
 		var dataTable = document.createElement("table");
 		dataTable.className = "small";
-		dataTable.appendChild(this.leagueTableBody);
+
+
+		for (let i in this.leagueTable) {
+			var labelRow = document.createElement("tr");
+			var placeCell = document.createElement("td");
+			var teamCell = document.createElement("td");
+			var pointsCell = document.createElement("td");
+
+			placeCell.innerHTML = this.leagueTable[i].platz;
+			teamCell.innerHTML = this.leagueTable[i].teamname;
+			pointsCell.innerHTML = this.leagueTable[i].punkte;
+
+
+			labelRow.appendChild(placeCell);
+			labelRow.appendChild(teamCell);
+			labelRow.appendChild(pointsCell);
+
+			dataTable.appendChild(labelRow);
+
+			//this.logConsole("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
+		} 
+
+
 		wrapper.appendChild(dataTable);
 
 		return wrapper;
@@ -73,8 +94,7 @@ Module.register("MMM-KickerManager", {
 			this.loaded = true;
 
 			// Check if empty (Game locked because of "Spielzuteilung")
-			this.leagueTable = payload.table;
-			this.leagueTableBody = payload.tbody;
+			this.leagueTable = payload;
 			this.sendSocketNotification('LOG', "Got socket notification: " + notification);
 			this.updateDom(this.config.animationSpeed);
 		}
