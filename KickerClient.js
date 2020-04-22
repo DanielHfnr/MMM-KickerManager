@@ -32,7 +32,7 @@ class KickerClient {
     }
     
     async mustLogin() {
-        return Object.keys(cookies).length;
+        return Object.keys(this.currentCookies).length;
     }
 
     async login() {
@@ -54,7 +54,7 @@ class KickerClient {
     }
 
     async relaunchSession() {      
-        await this.page.setCookie(...cookies);
+        await this.page.setCookie(...this.currentCookies);
         
         return true;
     }
