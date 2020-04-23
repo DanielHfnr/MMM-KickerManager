@@ -66,18 +66,21 @@ Module.register("MMM-KickerManager", {
 		var logoRow = document.createElement("tr");
 
 
-		var teamnameLabel = document.createElement("th");
-		teamnameLabel.innerHTML = 'Team';
-		logoRow.appendChild(teamnameLabel);
-
 		var positionLabel = document.createElement("th");
+		positionLabel.className = "platz";
 		var positionLogo = document.createElement("i");
 		positionLogo.classList.add("fa", "fa-hashtag");
 		positionLabel.appendChild(positionLogo);
 		logoRow.appendChild(positionLabel);
 
 
+		var teamnameLabel = document.createElement("th");
+		teamnameLabel.className = "teamname";
+		teamnameLabel.innerHTML = 'Team';
+		logoRow.appendChild(teamnameLabel);
+
 		var tendenzLabel = document.createElement("th");
+		tendenzLabel.className = "tendenz";
 		var tendenzlogo = document.createElement("i");
 		tendenzlogo.classList.add("fa", "fa-line-chart");
 		tendenzLabel.appendChild(tendenzlogo);
@@ -85,6 +88,7 @@ Module.register("MMM-KickerManager", {
 
 
 		var punkteLabel = document.createElement("th");
+		punkteLabel.className = "punkte";
 		punkteLabel.innerHTML = 'Punkte';
 		logoRow.appendChild(punkteLabel);
 
