@@ -32,7 +32,7 @@ class KickerClient {
     }
     
     async mustLogin() {
-        return Object.keys(this.currentCookies).length;
+        return this.isEmpty(this.currentCookies);
     }
 
     async login() {
@@ -94,6 +94,14 @@ class KickerClient {
             }
         });
         return table;
+    }
+
+    isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
     }
 
 }

@@ -52,11 +52,18 @@ Module.register("MMM-KickerManager", {
 		
 		var wrapper = document.createElement("div");
 
+
 		if (!this.loaded) {
 			wrapper.innerHTML = "Loading data...";
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
+
+		var title = document.createElement('header');
+		title.innerHTML = this.getHeader();
+		title.setAttribute('width', '330px');
+		wrapper.appendChild(title);
+
 
 		var dataTable = document.createElement("table");
 		dataTable.className = "small";
@@ -68,12 +75,26 @@ Module.register("MMM-KickerManager", {
 			const entries = Object.entries(this.leagueTable[i])
 			for (const [key, value] of entries) {	
 				var rowCell = document.createElement("td");
-				if (key == "tendenz") {
-					var img = document.createElement("img");
-					img.src = value;
-					rowCell.appendChild(img);
-				} else {
-					rowCell.innerHTML = value;
+				
+				switch(key) {
+					case "tendenz":
+						rowCell.className = "tendenz";
+						var img = document.createElement("img");
+						img.src = value;
+						rowCell.appendChild(img);
+						break;
+					case "platz":
+						rowCell.className = "platz";
+						rowCell.innerHTML = value;
+						break;
+					case "teamname":
+						rowCell.className = "teamname";
+						rowCell.innerHTML = value;
+						break;
+					case "punkte":
+						rowCell.className = "punkte";
+						rowCell.innerHTML = value;
+						break;
 				}
 				tableRow.appendChild(rowCell);
 			}
