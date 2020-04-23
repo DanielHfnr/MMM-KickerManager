@@ -65,6 +65,7 @@ module.exports = NodeHelper.create({
                             this.logConsole("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
                         } 
                         this.logConsole("Sending socketNotification...");
+                        this.sendSocketNotification("LEAGUE_TABLE", this.leagueTable);
                     } else {
                         this.logConsole("League table is empty or game is locked...");
                     }
