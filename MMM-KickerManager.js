@@ -20,20 +20,23 @@ Module.register("MMM-KickerManager", {
 		this.leagueTable = null;
         
 		Log.info("Starting module: " + this.name);
-		this.updateLeagueTable(this);
-		setInterval(() => {
-            this.updateLeagueTable(this);
-			}, this.config.updateInterval);
-			
-		//TODO: Update every day at 2:05 pm. On Mondays update at 12:05
-		// Something like this: 
-		// window.setInterval(function(){ // Set interval for checking
-		// 	var date = new Date(); // Create a Date object to find out what time it is
-		// 	if(date.getHours() === 8 && date.getMinutes() === 0){ // Check the time
-		// 		// Do stuff
-		// 	}
-		// }, 60000); // Repeat every 60000 milliseconds (1 minute)
-
+		this.updateLeagueTable(this);			
+		//Update every day at 2:05 pm. On Mondays update at 12:05
+		setInterval(function(){ // Set interval for checking
+			var date = new Date(); // Create a Date object to find out what time it is
+			// On mondays update 12:05 pm
+			if (date.getDay() === 0) {
+				if (date.getHours() === 12 && date.getMinutes() === 5) {
+					this.sendSocketNotification('LOG', "Its monday 12:05. Lets get current standings!");
+					this.updateLeagueTable(this);
+				}
+			} else {
+				if (date.getHours() === 14 && date.getMinutes() === 5) {
+					this.sendSocketNotification('LOG', "Lets get current standings!");
+					this.updateLeagueTable(this);
+				}
+			}
+		}, 60*1000); //  Check every minute for the time
 	},
 
 	getStyles: function() {
