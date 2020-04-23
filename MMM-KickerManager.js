@@ -59,12 +59,6 @@ Module.register("MMM-KickerManager", {
 			return wrapper;
 		}
 
-		var title = document.createElement('header');
-		title.innerHTML = this.getHeader();
-		title.setAttribute('width', '330px');
-		wrapper.appendChild(title);
-
-
 		var dataTable = document.createElement("table");
 		dataTable.className = "small";
 

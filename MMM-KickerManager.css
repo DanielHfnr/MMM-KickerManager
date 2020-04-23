@@ -2,7 +2,28 @@
     text-align: right;
   }
   
-  .data i {
+.data i {
     width: 20px;
     text-align: center;
+  }
+
+.tendenz {
+    width: auto;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+.teamname {
+    width: auto;
+    text-align: left;
+    padding-right: 15px;
+  }
+
+.platz {
+    text-align: right;
+  }
+
+.punkte {
+    text-align: right;
   }
