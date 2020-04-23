@@ -22,8 +22,10 @@
 
 .platz {
     text-align: right;
+    padding-right: 10px;
   }
 
 .punkte {
     text-align: right;
+    padding-left: 5px;
   }

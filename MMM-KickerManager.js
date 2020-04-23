@@ -62,6 +62,35 @@ Module.register("MMM-KickerManager", {
 		var dataTable = document.createElement("table");
 		dataTable.className = "small";
 
+		// Add logos
+		var logoRow = document.createElement("tr");
+
+
+		var teamnameLabel = document.createElement("th");
+		teamnameLabel.innerHTML = 'Team';
+		logoRow.appendChild(teamnameLabel);
+
+		var positionLabel = document.createElement("th");
+		var positionLogo = document.createElement("i");
+		positionLogo.classList.add("fa", "fa-hashtag");
+		positionLabel.appendChild(positionLogo);
+		logoRow.appendChild(positionLabel);
+
+
+		var tendenzLabel = document.createElement("th");
+		var tendenzlogo = document.createElement("i");
+		tendenzlogo.classList.add("fa", "fa-line-chart");
+		tendenzLabel.appendChild(tendenzlogo);
+		logoRow.appendChild(tendenzLabel);
+
+
+		var punkteLabel = document.createElement("th");
+		punkteLabel.innerHTML = 'Punkte';
+		logoRow.appendChild(punkteLabel);
+
+
+		dataTable.appendChild(logoRow);
+
 		// Create Table
 		for (let i in this.leagueTable) {
 			var tableRow = document.createElement("tr");
