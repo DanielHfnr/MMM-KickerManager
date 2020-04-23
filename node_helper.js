@@ -77,12 +77,17 @@ module.exports = NodeHelper.create({
                 this.logConsole("Retrieving league table data...");
                 // Get actual league table 
                 this.client.getLeagueTable().then(table => {
-                    this.leagueTable = table;
-                    for (let i in this.leagueTable.table) {
-                        this.logConsole("Platz: " + this.leagueTable.table[i].platz + "     Teamname: " + this.leagueTable.table[i].teamname + "     Punkte: " + this.leagueTable.table[i].punkte);
+                    // check if empty because of game is locked
+                    if (!this.isEmpty(table)) {
+                        this.leagueTable = table;
+                        for (let i in this.leagueTable) {
+                            this.logConsole("Platz: " + this.leagueTable[i].platz + "     Teamname: " + this.leagueTable[i].teamname + "     Punkte: " + this.leagueTable[i].punkte);
+                        } 
+                        this.logConsole("Sending socketNotification...");
+                        this.sendSocketNotification("LEAGUE_TABLE", this.leagueTable);
+                    } else {
+                        this.logConsole("League table is empty or game is locked...");
                     }
-                    this.logConsole("Sending socketNotification...");
-                    this.sendSocketNotification("LEAGUE_TABLE", {"table":this.leagueTable.table, "tbody":this.leagueTable.tbody});
                 });
             });
         }

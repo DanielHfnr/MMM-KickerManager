@@ -31,8 +31,12 @@ class KickerClient {
         return true;
     }
     
-    async mustLogin() {
-        return this.isEmpty(this.currentCookies);
+    mustLogin() {
+        if (this.currentCookies === null) {
+            return true;
+        } else {
+            return false;
+        } 
     }
 
     async login() {
@@ -49,8 +53,6 @@ class KickerClient {
 
     async saveCookies() {     
         this.currentCookies = await this.page.cookies();
-        //fs.writerFileSync('./cookies.json', JSON.stringify(this.currentCookies));
-        // Instead of filesystem --> save in variable
     }
 
     async relaunchSession() {      
@@ -81,14 +83,15 @@ class KickerClient {
 
         table_rows.each(function (i, e) {
 
-            if ($(e).children('td.first').length && 
-                $(e).children('td').children('a.link').length &&
-                $(e).children('td.last.alignright').length) {
+            if ($(e).find('td.first').length && 
+                $(e).find('a.link').length &&
+                $(e).find('td.last.alignright').length && 
+                $(e).find('img').attr('src').length) {
 
-                var platz = $(e).children('td.first').text();  
+                var platz = $(e).find('td.first').text();  
                 var tendenz = $(e).find('img').attr('src');
-                var teamname = $(e).children('td').children('a.link').text();
-                var punkte = $(e).children('td.last.alignright').text();
+                var teamname = $(e).find('a.link').text();
+                var punkte = $(e).find('td.last.alignright').text();
 
                 table.push({"platz":platz, "teamname":teamname, "tendenz":tendenz, "punkte":punkte});
             }
