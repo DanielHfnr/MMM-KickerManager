@@ -1,7 +1,5 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio')
-//const fs = require('fs');
-const cookies = require('./cookies.json');
 
 const base_url = 'https://www.kicker.de/';
 const login_url = 'https://www.kicker.de/meinkicker/login';
