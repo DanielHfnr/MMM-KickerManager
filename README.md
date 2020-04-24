@@ -23,6 +23,7 @@ Add this configuration into `config.js` file's
 {
     module: "MMM-KickerManager",
     position: "bottom_left",
+    header: "My Kicker Season 19/20",
     config: {
        username: "USER@EXAMPLE.COM",
        password: "SECRET",
