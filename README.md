@@ -3,6 +3,9 @@
 A module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/) that displays your [Kicker.de](https://www.kicker.de) Manager League Table.
 Work is still in progress. Currently the module can only display the league table of the kicker manager pro version. 
 
+![Alt text](/img/example.png "Example image of the module")
+
+
 ## Features
  * Web scraping functionality using puppeteer
  * Login in to your www.kicker.de account
