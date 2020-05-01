@@ -21,22 +21,10 @@ Module.register("MMM-KickerManager", {
         
 		Log.info("Starting module: " + this.name);
 		this.updateLeagueTable(this);			
-		//Update every day at 2:05 pm. On Mondays update at 12:05
-		setInterval(function(){ // Set interval for checking
-			var date = new Date(); // Create a Date object to find out what time it is
-			// On mondays update 12:05 pm
-			if (date.getDay() === 0) {
-				if (date.getHours() === 12 && date.getMinutes() === 5) {
-					this.sendSocketNotification('LOG', "Its monday 12:05. Lets get current standings!");
-					this.updateLeagueTable(this);
-				}
-			} else {
-				if (date.getHours() === 14 && date.getMinutes() === 5) {
-					this.sendSocketNotification('LOG', "Lets get current standings!");
-					this.updateLeagueTable(this);
-				}
-			}
-		}, 60*1000); //  Check every minute for the time
+		setInterval(() => {
+            this.checkDateTime(this);
+			}, 60*1000);
+
 	},
 
 	getStyles: function() {
@@ -147,6 +135,23 @@ Module.register("MMM-KickerManager", {
 		}
     },
 
+	checkDateTime: function() {
+		var date = new Date(); // Create a Date object to find out what time it is
+		this.sendSocketNotification('LOG', "Checking date and time...");
+
+		// On mondays update 12:05 pm
+		if (date.getDay() === 0) {
+			if (date.getHours() === 12 && date.getMinutes() === 5) {
+				this.sendSocketNotification('LOG', "Its monday 12:05. Lets get current standings!");
+				this.updateLeagueTable(this);
+			}
+		} else {
+			if (date.getHours() === 14 && date.getMinutes() === 5) {
+				this.sendSocketNotification('LOG', "Lets get current standings!");
+				this.updateLeagueTable(this);
+			}
+		}
+	},
 
     updateLeagueTable: function() {
 		this.sendSocketNotification("GET_LEAGUE_TABLE", this.config);
